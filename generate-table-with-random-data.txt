@@ -1,0 +1,22 @@
+docker run -e POSTGRES_PASSWORD=postgres --name pg postgres 
+
+docker exec -it pg psql -U postgres 
+create table temp (t int); 
+create table emp (id int)
+
+insert into temp (t) select random()*100 from generate_series(0,100000);
+
+CREATE TABLE emp (
+    id INT ,
+    name VARCHAR(100),
+    age INT,
+    depId INT
+);
+
+INSERT INTO emp (id, name, age, depId)
+SELECT
+    generate_series(1, 10000),
+    (random() * 10000)::text,
+    (random() * 90 + 10)::integer,
+    (random() * 9 + 1)::integer
+FROM generate_series(1, 10000);
